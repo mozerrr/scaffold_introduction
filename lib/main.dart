@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       debugShowCheckedModeBanner: false,
-      home: const ScaffoldScreen(),
+      home: const SimpleScaffoldV7Broken(),
     );
   }
 }
@@ -38,70 +38,84 @@ class _ScaffoldScreenState extends State<ScaffoldScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Scaffold AppBar'),
-      ),
-      drawer: LocalDrawer(),
-      body: IndexedStack(
-        index: tabIndex,
-        children: [
-          const Body1(),
-          const Body2(),
-        ],
-      ),
-      floatingActionButton: Builder(builder: (context) {
-        return FloatingActionButton(
-          onPressed: () {
-            Modals.showBottomSheet(context);
-          },
-          child: Icon(Icons.mode_comment),
-        );
-      }),
-      persistentFooterAlignment: AlignmentDirectional.centerStart,
-      persistentFooterButtons: [
-        TextButton(
-          onPressed: () {
-            Modals.showSnackBar(context);
-          },
-          child: Text('SnackBar'),
-        ),
-        TextButton(
-          onPressed: () {
-            Modals.showMaterialBanner(context);
-          },
-          child: Text('MaterialBanner'),
-        ),
-        // TextButton(
-        //   onPressed: () {
-        //     Modals.showBottomSheet(context);
-        //   },
-        //   child: Text('BottomSheet'),
-        // ),
-        // TextButton(
-        //   onPressed: () {
-        //     Modals.showOriginalModalBottomSheet(context);
-        //   },
-        //   child: Text('ModalBottomSheet'),
-        // ),
-      ],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: tabIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Scaffold AppBar'),
+          bottom: TabBar(
+            labelColor: Colors.black,
+            tabs: [
+              Tab(
+                icon: Icon(Icons.call),
+              ),
+              Tab(
+                icon: Icon(Icons.access_alarms),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+        ),
+        drawer: LocalDrawer(),
+        body: IndexedStack(
+          index: tabIndex,
+          children: [
+            const Body1(),
+            const Body2(),
+          ],
+        ),
+        floatingActionButton: Builder(builder: (context) {
+          return FloatingActionButton(
+            onPressed: () {
+              Modals.showBottomSheet(context);
+            },
+            child: Icon(Icons.mode_comment),
+          );
+        }),
+        persistentFooterAlignment: AlignmentDirectional.centerStart,
+        persistentFooterButtons: [
+          TextButton(
+            onPressed: () {
+              Modals.showSnackBar(context);
+            },
+            child: Text('SnackBar'),
           ),
+          TextButton(
+            onPressed: () {
+              Modals.showMaterialBanner(context);
+            },
+            child: Text('MaterialBanner'),
+          ),
+          // TextButton(
+          //   onPressed: () {
+          //     Modals.showBottomSheet(context);
+          //   },
+          //   child: Text('BottomSheet'),
+          // ),
+          // TextButton(
+          //   onPressed: () {
+          //     Modals.showOriginalModalBottomSheet(context);
+          //   },
+          //   child: Text('ModalBottomSheet'),
+          // ),
         ],
-        onTap: (index) {
-          setState(() {
-            tabIndex = index;
-          });
-        },
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: tabIndex,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+          ],
+          onTap: (index) {
+            setState(() {
+              tabIndex = index;
+            });
+          },
+        ),
       ),
     );
   }
@@ -362,94 +376,44 @@ class SimpleScaffoldV7Broken extends StatelessWidget {
     final appBarHeight =
         kToolbarHeight + MediaQuery.of(context).viewPadding.top;
 
-    return Stack(
-      children: [
-        Positioned.fill(
-          top: appBarHeight,
-          child: Container(
-            color: Colors.white,
-            child: Center(
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.black,
+    return DefaultTabController(
+      length: 2,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            top: appBarHeight,
+            child: Container(
+              color: Colors.white,
+              child: Center(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.black,
+                  ),
+                  onPressed: () {},
+                  child: Text('Simple Scaffold V7 Broken'),
                 ),
-                onPressed: () {},
-                child: Text('Simple Scaffold V7 Broken'),
               ),
             ),
           ),
-        ),
-        SizedBox(
-          height: appBarHeight,
-          child: AppBar(
-            title: Row(
-              children: [
-                Padding(
-                  // padding: const EdgeInsets.all(0),
-                  padding: const EdgeInsets.all(8),
-                  child: CircleAvatar(
-                    minRadius: 24,
-                    child: FlutterLogo(),
+          SizedBox(
+            height: appBarHeight,
+            child: AppBar(
+              title: Text('Scaffold AppBar'),
+              bottom: TabBar(
+                labelColor: Colors.black,
+                tabs: [
+                  Tab(
+                    icon: Icon(Icons.call),
                   ),
-                ),
-                Text('Scaffold AppBar'),
-              ],
-            ),
-            //
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class SimpleScaffoldV8 extends StatelessWidget {
-  const SimpleScaffoldV8({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    const paddingSum = 16;
-    final appBarHeight =
-        kToolbarHeight + paddingSum + MediaQuery.of(context).viewPadding.top;
-
-    return Stack(
-      children: [
-        Positioned.fill(
-          top: appBarHeight,
-          child: Container(
-            color: Colors.white,
-            child: Center(
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.black,
-                ),
-                onPressed: () {},
-                child: Text('Simple Scaffold V8'),
+                  Tab(
+                    icon: Icon(Icons.access_alarms),
+                  ),
+                ],
               ),
             ),
           ),
-        ),
-        SizedBox(
-          height: appBarHeight,
-          child: AppBar(
-            toolbarHeight: kToolbarHeight + paddingSum,
-            title: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: CircleAvatar(
-                    minRadius: 24,
-                    child: FlutterLogo(),
-                  ),
-                ),
-                Text('Scaffold AppBar'),
-              ],
-            ),
-            //
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -459,34 +423,32 @@ class RealSimpleScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const paddingSum = 16;
-
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        toolbarHeight: kToolbarHeight + paddingSum,
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: CircleAvatar(
-                minRadius: 24,
-                child: FlutterLogo(),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text('Scaffold AppBar'),
+          bottom: TabBar(
+            labelColor: Colors.black,
+            tabs: [
+              Tab(
+                icon: Icon(Icons.call),
               ),
-            ),
-            Text('Scaffold AppBar'),
-          ],
-        ),
-        //
-      ),
-      body: Center(
-        child: TextButton(
-          style: TextButton.styleFrom(
-            foregroundColor: Colors.black,
+              Tab(
+                icon: Icon(Icons.access_alarms),
+              ),
+            ],
           ),
-          onPressed: () {},
-          child: Text('Real Simple Scaffold'),
+        ),
+        body: Center(
+          child: TextButton(
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.black,
+            ),
+            onPressed: () {},
+            child: Text('Real Simple Scaffold'),
+          ),
         ),
       ),
     );
